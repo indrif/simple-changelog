@@ -1,0 +1,5 @@
+**/coverage/
+**/node_modules/
+**/tmp/
+DEVOPS-CHANGELOG.md
+CHANGELOG.md
