@@ -20,12 +20,11 @@ types = {
     'test': 'Tests',
     'build': 'Build System',
     'ci': 'Continuous Integration',
-    'chore': 'Other'
+    'chore': 'Other',
+    'breaking': 'Breaking Changes'
 }
 
 changes = {x: [] for x in types.keys()}
-
-
 
 def get_changes(gitfrom=None):
     re_breaking = re.compile('BREAKING CHANGE: (.*)')
@@ -35,7 +34,7 @@ def get_changes(gitfrom=None):
             if message[1] not in changes:
                 continue
 
-            changes[message[1]].append((_hash, message[2],message[3][0]))
+            changes[message[1]].append((_hash, message[2], message[3][0]))
 
             if message[3][1] and 'BREAKING CHANGE' in message[3][1]:
                 parts = re_breaking.match(message[3][1])
@@ -48,7 +47,6 @@ def get_changes(gitfrom=None):
                     changes['breaking'].append((_hash, parts.group(1)))
 
         except UnknownCommitMessageStyleError:
-            #print('Ignoring', err)
             pass
     return changes
 
@@ -58,19 +56,21 @@ def title(type):
 def markdown_changelog(version, changelog, header):
     output = ''
     if header:
-        output += '## {0}\n'.format(version)
+        output += '## {}\n'.format(version)
 
     for section in changes:
         if not changelog[section]:
             continue
 
-        output += '\n\n### {0}\n\n'.format(title(section))
+        output += '\n\n### {}\n\n'.format(title(section))
         for item in changelog[section]:
-            output += '* **{0}:** {1} ([{2}]({3}))\n'.format(item[1], item[2], item[0][:7], repo_url_format.format(item[0]))
+            output += '*'
+            if item[1]:
+                output += ' **{}:**'.format(item[1])
+            output += ' {} ([{}]({}))\n'.format(item[2], item[0][:7], repo_url_format.format(item[0]))
 
     return output
 
 c = get_changes(from_commit)
-
 m = markdown_changelog(version, c, True)
 print(m)
