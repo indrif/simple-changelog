@@ -24,7 +24,7 @@
   "dependencies": {
     "add-stream": "^1.0.0",
     "chalk": "^2.0.0",
-    "conventional-changelog-angular": "^5.0.5",
+    "conventional-changelog-quinyx": "file:./packages/conventional-changelog-quinyx/",
     "conventional-changelog-core": "^4.0.2",
     "conventional-changelog-writer": "^4.0.9",
     "conventional-commits-parser": "^3.0.5",

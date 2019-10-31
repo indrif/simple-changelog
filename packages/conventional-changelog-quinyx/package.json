@@ -1,0 +1,34 @@
+{
+  "name": "conventional-changelog-quinyx",
+  "version": "0.0.1",
+  "description": "conventional-changelog quinyx preset, a fine piece of stolen code",
+  "main": "index.js",
+  "scripts": {
+    "test-windows": "mocha --timeout 30000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mollerdaniel/simple-changelog.git"
+  },
+  "keywords": [
+    "conventional-changelog",
+    "angular",
+    "preset"
+  ],
+  "files": [
+    "conventional-changelog.js",
+    "conventional-recommended-bump.js",
+    "index.js",
+    "parser-opts.js",
+    "writer-opts.js",
+    "templates"
+  ],
+  "author": "Quinyx",
+  "engines": {
+    "node": ">=6.9.0"
+  },
+  "dependencies": {
+    "compare-func": "^1.3.1",
+    "q": "^1.5.1"
+  }
+}

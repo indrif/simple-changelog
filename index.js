@@ -6,7 +6,7 @@ const mergeConfig = require('conventional-changelog-core/lib/merge-config')
 const conventionalCommitsParser = require('conventional-commits-parser')
 const conventionalChangelogWriter = require('conventional-changelog-writer')
 const through = require('through2')
-var angular = require('conventional-changelog-angular')
+var quinyx = require('conventional-changelog-quinyx')
 var fs = require('fs')
 var accessSync = require('fs-access').sync
 var chalk = require('chalk')
@@ -97,7 +97,7 @@ function conventionalChangelogRaw (options, context, gitRawCommitsOpts, parserOp
 
 function conventionalChangelog (options, context, gitRawCommitsOpts, parserOpts, writerOpts, execOpts) {
   options = options || {}
-  options.config = angular
+  options.config = quinyx
   return conventionalChangelogRaw(options, context, gitRawCommitsOpts, parserOpts, writerOpts, execOpts)
 }
 
