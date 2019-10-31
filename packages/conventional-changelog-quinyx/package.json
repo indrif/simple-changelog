@@ -1,7 +1,7 @@
 {
   "name": "conventional-changelog-quinyx",
   "version": "0.0.1",
-  "description": "conventional-changelog quinyx preset, a fine piece of stolen code",
+  "description": "conventional-changelog quinyx preset, a fine piece of cmd+c",
   "main": "index.js",
   "scripts": {
     "test-windows": "mocha --timeout 30000"
@@ -12,8 +12,7 @@
   },
   "keywords": [
     "conventional-changelog",
-    "angular",
-    "preset"
+    "quinyx"
   ],
   "files": [
     "conventional-changelog.js",

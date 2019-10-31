@@ -7,11 +7,7 @@
     "url": "https://github.com/mollerdaniel/simple-changelog.git"
   },
   "keywords": [
-    "conventional-changelog",
-    "angular",
-    "conventional",
-    "changelog",
-    "log"
+    "simple-changelog"
   ],
   "license": "MIT",
   "engines": {

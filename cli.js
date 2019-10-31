@@ -20,13 +20,10 @@ var cli = meow(`
     -f, --first-release       Generate the CHANGELOG for the first time
     -o, --outfile             Write the CHANGELOG to this file. If unspecified (default: CHANGELOG.md)
     -s, --same-file           Overwrite the infile (default: true)
-    -p, --preset              Name of the preset you want to use (default: angular)
-    -k, --pkg                 A filepath of where your package.json is located
     -a, --append              Should the generated block be appended
     -r, --release-count       How many releases to be generated from the latest
     -v, --verbose             Verbose output
     -c, --context             A filepath of a json that is used to define template variables
-    -l, --lerna-package       Generate a changelog for a specific lerna package (:pkg-name@1.0.0)
     --commit-path             Generate a changelog scoped to a specific directory
     -z, --from-commit         Only append from specific git commit
     -g, --git-path            Path to Git directory for scraping the commit history
@@ -47,12 +44,6 @@ var cli = meow(`
       alias: `s`,
       default: true,
       type: `boolean`
-    },
-    'preset': {
-      alias: `p`
-    },
-    'pkg': {
-      alias: `k`
     },
     'append': {
       alias: `a`
@@ -89,13 +80,12 @@ var append = flags.append
 var releaseCount = flags.firstRelease ? 0 : flags.releaseCount
 
 var options = _.omit({
-  preset: flags.preset,
+  preset: '',
   pkg: {
-    path: flags.pkg
+    path: 'foo'
   },
   append: append,
   releaseCount: releaseCount,
-  lernaPackage: flags.lernaPackage
 }, _.isUndefined)
 
 if (flags.verbose) {
