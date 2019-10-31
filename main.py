@@ -1,6 +1,6 @@
 """simple-changelog
 
-CHANGELOG.md for lazy ppl
+CHANGELOG.md from Conventional Commits for lazy ppl
 
 Author: Daniel Möller (danne.moeller@gmail.com)
 
@@ -33,7 +33,7 @@ types = {
     'build': 'Build System',
     'ci': 'Continuous Integration',
     'chore': 'Other',
-    'breaking': 'Breaking Changes'
+    'breaking': 'BREAKING CHANGES'
 }
 
 changes = {x: [] for x in types.keys()}
