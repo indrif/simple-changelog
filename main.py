@@ -4,8 +4,9 @@ from semantic_release.errors import UnknownCommitMessageStyleError
 import re
 from datetime import datetime
 
-repo_url_format = 'https://phabricator.quinyx.com/rC{}'
-from_commit = '1260446706d8'
+repo_url_format = 'https://foo/{}'
+#from_commit = '1260446706d8'
+from_commit = None
 version = datetime.today().strftime('%Y-%m-%d')
 
 types = {
