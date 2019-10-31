@@ -13,18 +13,6 @@ var chalk = require('chalk')
 var figures = require('figures')
 var sprintf = require('sprintf-js').sprintf
 
-function footest () {
-
-  return through.obj(function (data, enc, cb) {
-    var commit
-
-    try {
-      console.log(data)
-    } catch (err) {
-      console.log(err.toString())
-    }
-  })
-}
 function conventionalChangelogRaw (options, context, gitRawCommitsOpts, parserOpts, writerOpts, execOpts) {
   writerOpts = writerOpts || {}
 
@@ -40,7 +28,6 @@ function conventionalChangelogRaw (options, context, gitRawCommitsOpts, parserOp
       gitRawCommitsOpts = data.gitRawCommitsOpts
       parserOpts = data.parserOpts
       writerOpts = data.writerOpts
-      console.log(writerOpts)
 
       gitRawCommits(gitRawCommitsOpts, execOpts)
         .on('error', function (err) {
@@ -48,7 +35,6 @@ function conventionalChangelogRaw (options, context, gitRawCommitsOpts, parserOp
           setImmediate(readable.emit.bind(readable), 'error', err)
         })
         .pipe(conventionalCommitsParser(parserOpts))
-        //.pipe(footest())
         .on('error', function (err) {
           err.message = 'Error in conventional-commits-parser: ' + err.message
           setImmediate(readable.emit.bind(readable), 'error', err)
@@ -65,7 +51,6 @@ function conventionalChangelogRaw (options, context, gitRawCommitsOpts, parserOp
           setImmediate(readable.emit.bind(readable), 'error', err)
         })
         .pipe(conventionalChangelogWriter(context, writerOpts))
-        //.pipe(footest())
         .on('error', function (err) {
           err.message = 'Error in conventional-changelog-writer: ' + err.message
           setImmediate(readable.emit.bind(readable), 'error', err)
