@@ -24,7 +24,7 @@ from docopt import docopt
 types = {
     'feature': 'Features',
     'fix': 'Bug Fixes',
-    'perf': 'Performance Improvements',
+    'performance': 'Performance Improvements',
     'revert': 'Reverts',
     'docs': 'Documentation',
     'stype': 'Styles',
@@ -35,10 +35,9 @@ types = {
     'chore': 'Other',
     'breaking': 'BREAKING CHANGES'
 }
-
 changes = {x: [] for x in types.keys()}
 
-def arg(key, default):
+def arg(args, key, default):
     v = args.get(key, default)
     if v:
         return v
@@ -50,7 +49,8 @@ def get_changes(gitfrom=None):
         try:
             message = current_commit_parser()(commit_message)
             if message[1] not in changes:
-                continue
+                changes[message[1]] = []
+                print('Type {} is not supported?'.format(message[1]))
 
             changes[message[1]].append((_hash, message[2], message[3][0]))
 
@@ -71,10 +71,10 @@ def get_changes(gitfrom=None):
 def title(type):
     return types.get(type, type)
 
-def markdown_changelog(version, changelog, header):
+def markdown_changelog(version, changelog, header, repo_url_format):
     output = ''
     if header:
-        output += '## {}\n'.format(version)
+        output += '# {}\n'.format(version)
 
     for section in changes:
         if not changelog[section]:
@@ -89,16 +89,20 @@ def markdown_changelog(version, changelog, header):
 
     return output
 
-args = docopt(__doc__)
-if not arg('--repo-web-url', False):
-    repo_url_format = Repo('.', search_parent_directories=True).remote('origin').url.split('.git')[0] + '/commit/'
-else:
-    repo_url_format = arg('--repo-web-url', 'https://foo/{}')
-if '{}' not in repo_url_format:
-    repo_url_format += '{}'
-from_commit = arg('--from-commit', None)
-version = arg('--version', datetime.today().strftime('%Y-%m-%d'))
+def main():
+    args = docopt(__doc__)
+    if not arg(args, '--repo-web-url', False):
+        repo_url_format = Repo('.', search_parent_directories=True).remote('origin').url.split('.git')[0] + '/commit/'
+    else:
+        repo_url_format = arg(args, '--repo-web-url', 'https://foo/{}')
+    if '{}' not in repo_url_format:
+        repo_url_format += '{}'
+    from_commit = arg(args, '--from-commit', None)
+    version = arg(args, '--version', datetime.today().strftime('%Y-%m-%d'))
 
-c = get_changes(from_commit)
-m = markdown_changelog(version, c, True)
-print(m)
+    c = get_changes(from_commit)
+    m = markdown_changelog(version, c, True, repo_url_format)
+    print(m)
+
+if __name__ == "__main__":
+    main()
